@@ -43,7 +43,8 @@ func TestIsNumber(t *testing.T) {
 	d = map[string]interface{}{
 		"number": "123",
 	}
+	_, errs = m.Do(d)
 	is.Equal(len(errs), 1)
-	is.Equal(errs["number"][0].Error(), "unexpected 'extra'")
+	is.Equal(errs["number"][0].Error(), "must be a number")
 
 }

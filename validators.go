@@ -19,8 +19,10 @@ func Strict(m M, data map[string]interface{}) error {
 	return nil
 }
 
-var errNotNumber = errors.New("expected number")
+var errNotNumber = errors.New("must be a number")
 
+// IsNumber checks to make sure the value is a number.
+// Remains silent if the data is not present.
 func IsNumber(data map[string]interface{}, key string) error {
 	if v, ok := data[key]; ok {
 		switch v.(type) {
