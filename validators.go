@@ -2,6 +2,22 @@ package model
 
 import "errors"
 
+var errRequired = errors.New("is required")
+
+// IsRequired checks to make sure key is present and the value
+// is non-nil.
+func IsRequired(data map[string]interface{}, key string) error {
+	var v interface{}
+	var ok bool
+	if v, ok = data[key]; !ok {
+		return errRequired
+	}
+	if v == nil {
+		return errRequired
+	}
+	return nil
+}
+
 type errUnexpectedField string
 
 func (f errUnexpectedField) Error() string {

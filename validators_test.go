@@ -48,3 +48,31 @@ func TestIsNumber(t *testing.T) {
 	is.Equal(errs["number"][0].Error(), "must be a number")
 
 }
+
+func TestIsRequired(t *testing.T) {
+
+	is := is.New(t)
+
+	m := model.M{
+		"number": {model.IsRequired},
+	}
+
+	d := map[string]interface{}{
+		"number": 123,
+	}
+	_, errs := m.Do(d)
+	is.Equal(len(errs), 0)
+
+	d = map[string]interface{}{
+		"number": nil,
+	}
+	_, errs = m.Do(d)
+	is.Equal(len(errs), 1)
+	is.Equal(errs["number"][0].Error(), "is required")
+
+	d = map[string]interface{}{}
+	_, errs = m.Do(d)
+	is.Equal(len(errs), 1)
+	is.Equal(errs["number"][0].Error(), "is required")
+
+}
