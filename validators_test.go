@@ -26,3 +26,24 @@ func TestStrict(t *testing.T) {
 	is.Equal(errs["model"][0].Error(), "unexpected 'extra'")
 
 }
+
+func TestIsNumber(t *testing.T) {
+	is := is.New(t)
+
+	m := model.M{
+		"number": {model.IsNumber},
+	}
+
+	d := map[string]interface{}{
+		"number": 123,
+	}
+	_, errs := m.Do(d)
+	is.Equal(len(errs), 0)
+
+	d = map[string]interface{}{
+		"number": "123",
+	}
+	is.Equal(len(errs), 1)
+	is.Equal(errs["number"][0].Error(), "unexpected 'extra'")
+
+}
