@@ -147,3 +147,45 @@ func TestModelAfter(t *testing.T) {
 	is.Equal(errs["model"][0].Error(), "whoops")
 
 }
+
+func TestNestedData(t *testing.T) {
+	is := is.New(t)
+
+	m := model.M{
+		"address.postcode":       {model.IsRequired},
+		"address.postcode.inner": {model.IsString},
+		"address.postcode.outer": {model.IsString},
+	}
+
+	d := map[string]interface{}{
+		"address": map[string]interface{}{
+			"postcode": map[string]interface{}{
+				"inner": "NG1",
+				"outer": "8BC",
+			},
+		},
+	}
+	_, errs := m.Do(d)
+	is.Equal(len(errs), 0)
+
+	d = map[string]interface{}{
+		"address": map[string]interface{}{
+			"postcode": map[string]interface{}{
+				"inner": 123,
+				"outer": 456,
+			},
+		},
+	}
+	_, errs = m.Do(d)
+	is.Equal(len(errs), 2)
+	is.Equal(errs["address.inner"][0], "should be string")
+	is.Equal(errs["address.outer"][0], "should be string")
+
+	d = map[string]interface{}{
+		"address": map[string]interface{}{},
+	}
+	_, errs = m.Do(d)
+	is.Equal(len(errs), 1)
+	is.Equal(errs["address.postcode"][0], "is required")
+
+}

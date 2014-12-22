@@ -9,6 +9,7 @@ const (
 	nonFieldPrefix = "__"
 	keyBefore      = nonFieldPrefix + "before"
 	keyAfter       = nonFieldPrefix + "after"
+	dot            = "."
 )
 
 // Errs is a slice of error keyed by the field name.
