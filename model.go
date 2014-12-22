@@ -11,6 +11,10 @@ const (
 	keyAfter       = nonFieldPrefix + "after"
 )
 
+// Errs is a slice of error keyed by the field name.
+type Errs map[string][]error
+
+// f is the validator function type.
 type f func(data map[string]interface{}, key string) error
 
 // M is a map providing []F functions for each field.
@@ -18,12 +22,12 @@ type M map[string][]f
 
 // Do processes the data with this model and returns new data,
 // and a slice of errors.
-func (m M) Do(data map[string]interface{}) (map[string]interface{}, map[string][]error) {
+func (m M) Do(data map[string]interface{}) (map[string]interface{}, Errs) {
 	newdata := make(map[string]interface{})
 	for k, v := range data {
 		newdata[k] = v
 	}
-	errs := make(map[string][]error)
+	errs := make(Errs)
 
 	// before
 	if b, ok := m[keyBefore]; ok {
