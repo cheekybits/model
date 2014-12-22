@@ -17,12 +17,34 @@ func IsBool(data map[string]interface{}, key string) error {
 	return nil
 }
 
+// IsBoolSlice checks to make sure the value is a bool.
+// Remains silent if the data is not present.
+func IsBoolSlice(data map[string]interface{}, key string) error {
+	if v, ok := data[key]; ok {
+		if _, ok := v.([]bool); !ok {
+			return errors.New(key + " must be array of bool")
+		}
+	}
+	return nil
+}
+
 // IsByte checks to make sure the value is a byte.
 // Remains silent if the data is not present.
 func IsByte(data map[string]interface{}, key string) error {
 	if v, ok := data[key]; ok {
 		if _, ok := v.(byte); !ok {
 			return errors.New(key + " must be byte")
+		}
+	}
+	return nil
+}
+
+// IsByteSlice checks to make sure the value is a byte.
+// Remains silent if the data is not present.
+func IsByteSlice(data map[string]interface{}, key string) error {
+	if v, ok := data[key]; ok {
+		if _, ok := v.([]byte); !ok {
+			return errors.New(key + " must be array of byte")
 		}
 	}
 	return nil
@@ -39,12 +61,34 @@ func IsComplex128(data map[string]interface{}, key string) error {
 	return nil
 }
 
+// IsComplex128Slice checks to make sure the value is a complex128.
+// Remains silent if the data is not present.
+func IsComplex128Slice(data map[string]interface{}, key string) error {
+	if v, ok := data[key]; ok {
+		if _, ok := v.([]complex128); !ok {
+			return errors.New(key + " must be array of complex128")
+		}
+	}
+	return nil
+}
+
 // IsComplex64 checks to make sure the value is a complex64.
 // Remains silent if the data is not present.
 func IsComplex64(data map[string]interface{}, key string) error {
 	if v, ok := data[key]; ok {
 		if _, ok := v.(complex64); !ok {
 			return errors.New(key + " must be complex64")
+		}
+	}
+	return nil
+}
+
+// IsComplex64Slice checks to make sure the value is a complex64.
+// Remains silent if the data is not present.
+func IsComplex64Slice(data map[string]interface{}, key string) error {
+	if v, ok := data[key]; ok {
+		if _, ok := v.([]complex64); !ok {
+			return errors.New(key + " must be array of complex64")
 		}
 	}
 	return nil
@@ -61,12 +105,34 @@ func IsError(data map[string]interface{}, key string) error {
 	return nil
 }
 
+// IsErrorSlice checks to make sure the value is a error.
+// Remains silent if the data is not present.
+func IsErrorSlice(data map[string]interface{}, key string) error {
+	if v, ok := data[key]; ok {
+		if _, ok := v.([]error); !ok {
+			return errors.New(key + " must be array of error")
+		}
+	}
+	return nil
+}
+
 // IsFloat32 checks to make sure the value is a float32.
 // Remains silent if the data is not present.
 func IsFloat32(data map[string]interface{}, key string) error {
 	if v, ok := data[key]; ok {
 		if _, ok := v.(float32); !ok {
 			return errors.New(key + " must be float32")
+		}
+	}
+	return nil
+}
+
+// IsFloat32Slice checks to make sure the value is a float32.
+// Remains silent if the data is not present.
+func IsFloat32Slice(data map[string]interface{}, key string) error {
+	if v, ok := data[key]; ok {
+		if _, ok := v.([]float32); !ok {
+			return errors.New(key + " must be array of float32")
 		}
 	}
 	return nil
@@ -83,12 +149,34 @@ func IsFloat64(data map[string]interface{}, key string) error {
 	return nil
 }
 
+// IsFloat64Slice checks to make sure the value is a float64.
+// Remains silent if the data is not present.
+func IsFloat64Slice(data map[string]interface{}, key string) error {
+	if v, ok := data[key]; ok {
+		if _, ok := v.([]float64); !ok {
+			return errors.New(key + " must be array of float64")
+		}
+	}
+	return nil
+}
+
 // IsInt checks to make sure the value is a int.
 // Remains silent if the data is not present.
 func IsInt(data map[string]interface{}, key string) error {
 	if v, ok := data[key]; ok {
 		if _, ok := v.(int); !ok {
 			return errors.New(key + " must be int")
+		}
+	}
+	return nil
+}
+
+// IsIntSlice checks to make sure the value is a int.
+// Remains silent if the data is not present.
+func IsIntSlice(data map[string]interface{}, key string) error {
+	if v, ok := data[key]; ok {
+		if _, ok := v.([]int); !ok {
+			return errors.New(key + " must be array of int")
 		}
 	}
 	return nil
@@ -105,12 +193,34 @@ func IsInt16(data map[string]interface{}, key string) error {
 	return nil
 }
 
+// IsInt16Slice checks to make sure the value is a int16.
+// Remains silent if the data is not present.
+func IsInt16Slice(data map[string]interface{}, key string) error {
+	if v, ok := data[key]; ok {
+		if _, ok := v.([]int16); !ok {
+			return errors.New(key + " must be array of int16")
+		}
+	}
+	return nil
+}
+
 // IsInt32 checks to make sure the value is a int32.
 // Remains silent if the data is not present.
 func IsInt32(data map[string]interface{}, key string) error {
 	if v, ok := data[key]; ok {
 		if _, ok := v.(int32); !ok {
 			return errors.New(key + " must be int32")
+		}
+	}
+	return nil
+}
+
+// IsInt32Slice checks to make sure the value is a int32.
+// Remains silent if the data is not present.
+func IsInt32Slice(data map[string]interface{}, key string) error {
+	if v, ok := data[key]; ok {
+		if _, ok := v.([]int32); !ok {
+			return errors.New(key + " must be array of int32")
 		}
 	}
 	return nil
@@ -127,12 +237,34 @@ func IsInt64(data map[string]interface{}, key string) error {
 	return nil
 }
 
+// IsInt64Slice checks to make sure the value is a int64.
+// Remains silent if the data is not present.
+func IsInt64Slice(data map[string]interface{}, key string) error {
+	if v, ok := data[key]; ok {
+		if _, ok := v.([]int64); !ok {
+			return errors.New(key + " must be array of int64")
+		}
+	}
+	return nil
+}
+
 // IsInt8 checks to make sure the value is a int8.
 // Remains silent if the data is not present.
 func IsInt8(data map[string]interface{}, key string) error {
 	if v, ok := data[key]; ok {
 		if _, ok := v.(int8); !ok {
 			return errors.New(key + " must be int8")
+		}
+	}
+	return nil
+}
+
+// IsInt8Slice checks to make sure the value is a int8.
+// Remains silent if the data is not present.
+func IsInt8Slice(data map[string]interface{}, key string) error {
+	if v, ok := data[key]; ok {
+		if _, ok := v.([]int8); !ok {
+			return errors.New(key + " must be array of int8")
 		}
 	}
 	return nil
@@ -149,12 +281,34 @@ func IsRune(data map[string]interface{}, key string) error {
 	return nil
 }
 
+// IsRuneSlice checks to make sure the value is a rune.
+// Remains silent if the data is not present.
+func IsRuneSlice(data map[string]interface{}, key string) error {
+	if v, ok := data[key]; ok {
+		if _, ok := v.([]rune); !ok {
+			return errors.New(key + " must be array of rune")
+		}
+	}
+	return nil
+}
+
 // IsString checks to make sure the value is a string.
 // Remains silent if the data is not present.
 func IsString(data map[string]interface{}, key string) error {
 	if v, ok := data[key]; ok {
 		if _, ok := v.(string); !ok {
 			return errors.New(key + " must be string")
+		}
+	}
+	return nil
+}
+
+// IsStringSlice checks to make sure the value is a string.
+// Remains silent if the data is not present.
+func IsStringSlice(data map[string]interface{}, key string) error {
+	if v, ok := data[key]; ok {
+		if _, ok := v.([]string); !ok {
+			return errors.New(key + " must be array of string")
 		}
 	}
 	return nil
@@ -171,12 +325,34 @@ func IsUint(data map[string]interface{}, key string) error {
 	return nil
 }
 
+// IsUintSlice checks to make sure the value is a uint.
+// Remains silent if the data is not present.
+func IsUintSlice(data map[string]interface{}, key string) error {
+	if v, ok := data[key]; ok {
+		if _, ok := v.([]uint); !ok {
+			return errors.New(key + " must be array of uint")
+		}
+	}
+	return nil
+}
+
 // IsUint16 checks to make sure the value is a uint16.
 // Remains silent if the data is not present.
 func IsUint16(data map[string]interface{}, key string) error {
 	if v, ok := data[key]; ok {
 		if _, ok := v.(uint16); !ok {
 			return errors.New(key + " must be uint16")
+		}
+	}
+	return nil
+}
+
+// IsUint16Slice checks to make sure the value is a uint16.
+// Remains silent if the data is not present.
+func IsUint16Slice(data map[string]interface{}, key string) error {
+	if v, ok := data[key]; ok {
+		if _, ok := v.([]uint16); !ok {
+			return errors.New(key + " must be array of uint16")
 		}
 	}
 	return nil
@@ -193,12 +369,34 @@ func IsUint32(data map[string]interface{}, key string) error {
 	return nil
 }
 
+// IsUint32Slice checks to make sure the value is a uint32.
+// Remains silent if the data is not present.
+func IsUint32Slice(data map[string]interface{}, key string) error {
+	if v, ok := data[key]; ok {
+		if _, ok := v.([]uint32); !ok {
+			return errors.New(key + " must be array of uint32")
+		}
+	}
+	return nil
+}
+
 // IsUint64 checks to make sure the value is a uint64.
 // Remains silent if the data is not present.
 func IsUint64(data map[string]interface{}, key string) error {
 	if v, ok := data[key]; ok {
 		if _, ok := v.(uint64); !ok {
 			return errors.New(key + " must be uint64")
+		}
+	}
+	return nil
+}
+
+// IsUint64Slice checks to make sure the value is a uint64.
+// Remains silent if the data is not present.
+func IsUint64Slice(data map[string]interface{}, key string) error {
+	if v, ok := data[key]; ok {
+		if _, ok := v.([]uint64); !ok {
+			return errors.New(key + " must be array of uint64")
 		}
 	}
 	return nil
@@ -215,12 +413,34 @@ func IsUint8(data map[string]interface{}, key string) error {
 	return nil
 }
 
+// IsUint8Slice checks to make sure the value is a uint8.
+// Remains silent if the data is not present.
+func IsUint8Slice(data map[string]interface{}, key string) error {
+	if v, ok := data[key]; ok {
+		if _, ok := v.([]uint8); !ok {
+			return errors.New(key + " must be array of uint8")
+		}
+	}
+	return nil
+}
+
 // IsUintptr checks to make sure the value is a uintptr.
 // Remains silent if the data is not present.
 func IsUintptr(data map[string]interface{}, key string) error {
 	if v, ok := data[key]; ok {
 		if _, ok := v.(uintptr); !ok {
 			return errors.New(key + " must be uintptr")
+		}
+	}
+	return nil
+}
+
+// IsUintptrSlice checks to make sure the value is a uintptr.
+// Remains silent if the data is not present.
+func IsUintptrSlice(data map[string]interface{}, key string) error {
+	if v, ok := data[key]; ok {
+		if _, ok := v.([]uintptr); !ok {
+			return errors.New(key + " must be array of uintptr")
 		}
 	}
 	return nil

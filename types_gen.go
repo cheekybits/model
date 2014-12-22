@@ -21,3 +21,14 @@ func IsType(data map[string]interface{}, key string) error {
 	}
 	return nil
 }
+
+// IsTypeSlice checks to make sure the value is a Type.
+// Remains silent if the data is not present.
+func IsTypeSlice(data map[string]interface{}, key string) error {
+	if v, ok := data[key]; ok {
+		if _, ok := v.([]Type); !ok {
+			return errors.New(key + " must be array of Type")
+		}
+	}
+	return nil
+}
