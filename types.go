@@ -485,3 +485,27 @@ func IsUintptrSlice(data map[string]interface{}, keypath string) error {
 	}
 	return nil
 }
+
+// //go:generate genny -pkg="model" -in=$GOFILE -out=types.go gen "interface{}=BUILTINS"
+
+// IsInterface checks to make sure the value is a interface{}.
+// Remains silent if the data is not present.
+func IsInterface(data map[string]interface{}, keypath string) error {
+	if v, ok := GetOK(data, keypath); ok {
+		if _, ok := v.(interface{}); !ok {
+			return errors.New("must be interface{}")
+		}
+	}
+	return nil
+}
+
+// IsInterfaceSlice checks to make sure the value is a interface{}.
+// Remains silent if the data is not present.
+func IsInterfaceSlice(data map[string]interface{}, keypath string) error {
+	if v, ok := GetOK(data, keypath); ok {
+		if _, ok := v.([]interface{}); !ok {
+			return errors.New("must be array of interface{}")
+		}
+	}
+	return nil
+}

@@ -1,6 +1,6 @@
 package model
 
-// //go:generate genny -pkg="model" -in=$GOFILE -out=types.go gen "Type=BUILTINS"
+// //go:generate genny -pkg="model" -in=$GOFILE -out=types.go gen "Type=BUILTINS,interface{}"
 
 import (
 	"errors"

@@ -1,7 +1,9 @@
 package model_test
 
 import (
+	"encoding/json"
 	"errors"
+	"log"
 	"testing"
 
 	"github.com/cheekybits/is"
@@ -13,6 +15,27 @@ var fokcalls = 0
 func fok(data map[string]interface{}, key string) error {
 	fokcalls++
 	return nil
+}
+
+func TestExample(t *testing.T) {
+
+	var Person = model.M{
+		"name":   {model.IsString, model.IsRequired},
+		"number": {model.IsNumber},
+		"ok":     {model.IsBool, model.IsRequired},
+		"tags":   {model.IsInterfaceSlice},
+	}
+
+	var data map[string]interface{}
+	json.Unmarshal([]byte(`{
+		"name": 123,
+		"number": false,
+		"tags": ["one", "two", "three"],
+	}`), &data)
+
+	_, errs := Person.Do(data)
+	log.Println(errs)
+
 }
 
 func TestModel(t *testing.T) {

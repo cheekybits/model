@@ -1,6 +1,7 @@
 package model
 
 import (
+	"log"
 	"strings"
 )
 
@@ -17,11 +18,11 @@ func Get(data map[string]interface{}, keypath string) interface{} {
 // keypath, or returns the second argument false if any of the data
 // is missing.
 func GetOK(data map[string]interface{}, keypath string) (interface{}, bool) {
-	segs := strings.Split(keypath, dot)
-	return getOK(data, segs)
+	return getOK(data, strings.Split(keypath, dot))
 }
 
 func getOK(data map[string]interface{}, keys []string) (interface{}, bool) {
+	log.Println("getOK", keys)
 	if len(keys) > 1 {
 		var sub interface{}
 		var ok bool

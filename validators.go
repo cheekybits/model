@@ -2,8 +2,8 @@ package model
 
 import (
 	"encoding/json"
-
 	"errors"
+	"log"
 )
 
 var errRequired = errors.New("is required")
@@ -14,6 +14,7 @@ func IsRequired(data map[string]interface{}, keypath string) error {
 	var v interface{}
 	var ok bool
 	if v, ok = GetOK(data, keypath); !ok {
+		log.Println(keypath, "not found")
 		return errRequired
 	}
 	if v == nil {
