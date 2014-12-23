@@ -17,6 +17,7 @@ func fok(data map[string]interface{}, key string) error {
 }
 
 func TestExample(t *testing.T) {
+	is := is.New(t)
 
 	var Person = model.M{
 		"name":   {model.IsString, model.IsRequired},
@@ -26,14 +27,15 @@ func TestExample(t *testing.T) {
 	}
 
 	var data map[string]interface{}
-	json.Unmarshal([]byte(`{
+	err := json.Unmarshal([]byte(`{
 		"name": 123,
 		"number": false,
-		"tags": ["one", "two", "three"],
+		"tags": ["one", "two", "three"]
 	}`), &data)
+	is.NoErr(err)
 
 	_, errs := Person.Do(data)
-	t.Log(errs)
+	is.Equal(len(errs), 3)
 
 }
 

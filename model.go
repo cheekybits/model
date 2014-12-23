@@ -1,8 +1,6 @@
 package model
 
-import (
-	"strings"
-)
+import "strings"
 
 const (
 	keyModel       = "model"
