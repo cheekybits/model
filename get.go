@@ -1,9 +1,6 @@
 package model
 
-import (
-	"log"
-	"strings"
-)
+import "strings"
 
 const dot = "."
 
@@ -22,7 +19,6 @@ func GetOK(data map[string]interface{}, keypath string) (interface{}, bool) {
 }
 
 func getOK(data map[string]interface{}, keys []string) (interface{}, bool) {
-	log.Println("getOK", keys)
 	if len(keys) > 1 {
 		var sub interface{}
 		var ok bool

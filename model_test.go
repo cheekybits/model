@@ -3,7 +3,6 @@ package model_test
 import (
 	"encoding/json"
 	"errors"
-	"log"
 	"testing"
 
 	"github.com/cheekybits/is"
@@ -34,7 +33,7 @@ func TestExample(t *testing.T) {
 	}`), &data)
 
 	_, errs := Person.Do(data)
-	log.Println(errs)
+	t.Log(errs)
 
 }
 
