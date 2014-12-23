@@ -178,14 +178,14 @@ func TestNestedData(t *testing.T) {
 	}
 	_, errs = m.Do(d)
 	is.Equal(len(errs), 2)
-	is.Equal(errs["address.inner"][0], "should be string")
-	is.Equal(errs["address.outer"][0], "should be string")
+	is.Equal(errs["address.postcode.inner"][0].Error(), "must be string")
+	is.Equal(errs["address.postcode.outer"][0].Error(), "must be string")
 
 	d = map[string]interface{}{
 		"address": map[string]interface{}{},
 	}
 	_, errs = m.Do(d)
 	is.Equal(len(errs), 1)
-	is.Equal(errs["address.postcode"][0], "is required")
+	is.Equal(errs["address.postcode"][0].Error(), "is required")
 
 }

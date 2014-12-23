@@ -9,14 +9,13 @@ const (
 	nonFieldPrefix = "__"
 	keyBefore      = nonFieldPrefix + "before"
 	keyAfter       = nonFieldPrefix + "after"
-	dot            = "."
 )
 
 // Errs is a slice of error keyed by the field name.
 type Errs map[string][]error
 
 // f is the validator function type.
-type f func(data map[string]interface{}, key string) error
+type f func(data map[string]interface{}, keypath string) error
 
 // M is a map providing []F functions for each field.
 type M map[string][]f
@@ -39,6 +38,7 @@ func (m M) Do(data map[string]interface{}) (map[string]interface{}, Errs) {
 
 	for k := range m {
 		if strings.HasPrefix(k, nonFieldPrefix) {
+			// skip all __ fields
 			continue
 		}
 		for _, fn := range m[k] {
