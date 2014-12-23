@@ -2,18 +2,19 @@ package model
 
 import (
 	"encoding/json"
-
 	"errors"
+	"log"
 )
 
 var errRequired = errors.New("is required")
 
 // IsRequired checks to make sure key is present and the value
 // is non-nil.
-func IsRequired(data map[string]interface{}, key string) error {
+func IsRequired(data map[string]interface{}, keypath string) error {
 	var v interface{}
 	var ok bool
-	if v, ok = data[key]; !ok {
+	if v, ok = GetOK(data, keypath); !ok {
+		log.Println(keypath, "not found")
 		return errRequired
 	}
 	if v == nil {
@@ -48,8 +49,8 @@ var errNotNumber = errors.New("must be a number")
 
 // IsNumber checks to make sure the value is a number.
 // Remains silent if the data is not present.
-func IsNumber(data map[string]interface{}, key string) error {
-	if v, ok := data[key]; ok {
+func IsNumber(data map[string]interface{}, keypath string) error {
+	if v, ok := GetOK(data, keypath); ok {
 		switch v.(type) {
 		case int, int8, int16, int32, int64,
 			uint, uint8, uint16, uint32, uint64,
