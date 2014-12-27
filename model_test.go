@@ -36,6 +36,9 @@ func TestExample(t *testing.T) {
 
 	_, errs := Person.Do(data)
 	is.Equal(len(errs), 3)
+	is.Equal(errs["name"][0].Error(), "must be string")
+	is.Equal(errs["number"][0].Error(), "must be a number")
+	is.Equal(errs["ok"][0].Error(), "is required")
 
 }
 
