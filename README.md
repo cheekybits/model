@@ -10,7 +10,7 @@ Simple data modeling for Go.
   * If the funcs return errors, they are collected and returned in a map of issues.
   * Use dot notation to supported nested objects.
 
- ### Example
+### Example
 
 Given this model:
 
