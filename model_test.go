@@ -16,6 +16,15 @@ func fok(data map[string]interface{}, key string) error {
 	return nil
 }
 
+func TestErrsHasErrs(t *testing.T) {
+	is := is.New(t)
+
+	e := model.Errs{"one": []error{errors.New("one")}}
+	is.Equal(e.HasErrs(), true)
+	e = model.Errs{}
+	is.Equal(e.HasErrs(), false)
+}
+
 func TestExample(t *testing.T) {
 	is := is.New(t)
 
