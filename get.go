@@ -32,5 +32,8 @@ func getOK(data map[string]interface{}, keys []string) (interface{}, bool) {
 		return getOK(submap, keys[1:])
 	}
 	value, ok := data[keys[0]]
+	if value == nil {
+		return nil, false
+	}
 	return value, ok
 }

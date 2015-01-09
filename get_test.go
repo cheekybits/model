@@ -23,6 +23,12 @@ func TestGet(t *testing.T) {
 			true,
 		},
 		{
+			map[string]interface{}{"name": nil},
+			"name",
+			nil,
+			false,
+		},
+		{
 			map[string]interface{}{"address": map[string]interface{}{"city": "London"}},
 			"address.city",
 			"London",

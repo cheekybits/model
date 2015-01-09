@@ -1,6 +1,9 @@
 package model
 
-import "strings"
+import (
+	"log"
+	"strings"
+)
 
 const (
 	keyModel       = "model"
@@ -47,6 +50,7 @@ func (m M) Do(data map[string]interface{}) (map[string]interface{}, Errs) {
 		}
 		for _, fn := range m[k] {
 			if err := fn(newdata, k); err != nil {
+				log.Println("ERROR", err)
 				errs[k] = append(errs[k], err)
 			}
 		}
