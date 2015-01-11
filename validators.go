@@ -3,6 +3,8 @@ package model
 import (
 	"encoding/json"
 	"errors"
+
+	"github.com/cheekybits/m"
 )
 
 var errRequired = errors.New("is required")
@@ -12,7 +14,7 @@ var errRequired = errors.New("is required")
 func IsRequired(data map[string]interface{}, keypath string) error {
 	var v interface{}
 	var ok bool
-	if v, ok = GetOK(data, keypath); !ok {
+	if v, ok = m.GetOK(data, keypath); !ok {
 		return errRequired
 	}
 	if v == nil {
@@ -48,7 +50,7 @@ var errNotNumber = errors.New("must be a number")
 // IsNumber checks to make sure the value is a number.
 // Remains silent if the data is not present.
 func IsNumber(data map[string]interface{}, keypath string) error {
-	if v, ok := GetOK(data, keypath); ok {
+	if v, ok := m.GetOK(data, keypath); ok {
 		switch v.(type) {
 		case int, int8, int16, int32, int64,
 			uint, uint8, uint16, uint32, uint64,
