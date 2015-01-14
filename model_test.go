@@ -118,6 +118,19 @@ func TestModelRequired(t *testing.T) {
 
 }
 
+func TestModelRemove(t *testing.T) {
+	is := is.New(t)
+
+	fokcalls = 0
+	m := model.M{
+		"name":   {fok},
+		"number": {fok, model.IsRequired},
+	}
+
+	is.Nil(m.Remove("number")["number"])
+
+}
+
 func TestChangingData(t *testing.T) {
 	is := is.New(t)
 

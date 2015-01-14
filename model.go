@@ -86,6 +86,20 @@ func (m M) Required() M {
 	return newM
 }
 
+// Remove returns a copy of the model with the provided key removed.
+func (m M) Remove(key string) M {
+	newM := M{}
+	for k, a := range m {
+		if k == key {
+			continue
+		}
+		for _, v := range a {
+			newM[k] = append(newM[k], v)
+		}
+	}
+	return newM
+}
+
 // Before adds a pre-process callback to the model.
 // Will be called before the fields are processed in Do.
 // The error returned from Before functions will be set in the data
