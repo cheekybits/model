@@ -62,6 +62,30 @@ func (m M) Do(data map[string]interface{}) (map[string]interface{}, Errs) {
 	return newdata, errs
 }
 
+var isRequiredComp = f(IsRequired)
+
+// Required returns a copy of the model with the "IsRequired" function added to each key.
+// This is useful for defining a model that can be built in steps from partial objects, then
+// validated at the end.
+func (m M) Required() M {
+	rID := &isRequiredComp
+	newM := M{}
+	for k, a := range m {
+		addRequired := true
+		for _, v := range a {
+			vID := &v
+			if vID == rID {
+				addRequired = false
+			}
+			newM[k] = append(newM[k], v)
+		}
+		if addRequired {
+			newM[k] = append(newM[k], IsRequired)
+		}
+	}
+	return newM
+}
+
 // Before adds a pre-process callback to the model.
 // Will be called before the fields are processed in Do.
 // The error returned from Before functions will be set in the data

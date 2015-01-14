@@ -84,6 +84,40 @@ func TestModel(t *testing.T) {
 
 }
 
+func TestModelRequired(t *testing.T) {
+	is := is.New(t)
+
+	fokcalls = 0
+	m := model.M{
+		"name":   {fok},
+		"number": {fok, model.IsRequired},
+	}
+
+	data := map[string]interface{}{
+		"number": 123,
+	}
+	newdata, errs := m.Do(data)
+	is.Equal(len(errs), 0)
+	is.OK(newdata)
+	is.Equal(newdata, data)
+	is.Equal(fokcalls, 2)
+
+	m = model.M{
+		"name":   {fok},
+		"number": {fok, model.IsRequired},
+	}
+
+	required := m.Required()
+	is.NotEqual(required, nil)
+	is.NotEqual(len(required), 0)
+
+	newdata, errs = required.Do(data)
+	is.Equal(len(errs), 1)
+	is.OK(errs["name"])
+	is.Equal(errs["name"][0].Error(), "is required")
+
+}
+
 func TestChangingData(t *testing.T) {
 	is := is.New(t)
 
