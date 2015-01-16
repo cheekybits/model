@@ -1,6 +1,10 @@
 package model
 
-import "strings"
+import (
+	"encoding/json"
+
+	"strings"
+)
 
 const (
 	keyModel       = "model"
@@ -11,6 +15,18 @@ const (
 
 // Errs is a slice of error keyed by the field name.
 type Errs map[string][]error
+
+// MarshalJSON marshals an Errs type to valid JSON
+func (e Errs) MarshalJSON() ([]byte, error) {
+	m := make(map[string][]string, len(e))
+	for k, v := range e {
+		m[k] = make([]string, len(v))
+		for i, av := range v {
+			m[k][i] = av.Error()
+		}
+	}
+	return json.Marshal(m)
+}
 
 // HasErrs returns a bool indicating whether the errs object
 // contains errors
