@@ -1,6 +1,10 @@
 package model
 
-import "strings"
+import (
+	"encoding/json"
+
+	"strings"
+)
 
 const (
 	keyModel       = "model"
@@ -11,6 +15,18 @@ const (
 
 // Errs is a slice of error keyed by the field name.
 type Errs map[string][]error
+
+// MarshalJSON marshals an Errs type to valid JSON
+func (e Errs) MarshalJSON() ([]byte, error) {
+	m := make(map[string][]string, len(e))
+	for k, v := range e {
+		m[k] = make([]string, len(v))
+		for i, av := range v {
+			m[k][i] = av.Error()
+		}
+	}
+	return json.Marshal(m)
+}
 
 // f is the validator function type.
 type f func(data map[string]interface{}, keypath string) error
@@ -54,6 +70,44 @@ func (m M) Do(data map[string]interface{}) (map[string]interface{}, Errs) {
 	}
 
 	return newdata, errs
+}
+
+var isRequiredComp = f(IsRequired)
+
+// Required returns a copy of the model with the "IsRequired" function added to each key.
+// This is useful for defining a model that can be built in steps from partial objects, then
+// validated at the end.
+func (m M) Required() M {
+	rID := &isRequiredComp
+	newM := M{}
+	for k, a := range m {
+		addRequired := true
+		for _, v := range a {
+			vID := &v
+			if vID == rID {
+				addRequired = false
+			}
+			newM[k] = append(newM[k], v)
+		}
+		if addRequired {
+			newM[k] = append(newM[k], IsRequired)
+		}
+	}
+	return newM
+}
+
+// Remove returns a copy of the model with the provided key removed.
+func (m M) Remove(key string) M {
+	newM := M{}
+	for k, a := range m {
+		if k == key {
+			continue
+		}
+		for _, v := range a {
+			newM[k] = append(newM[k], v)
+		}
+	}
+	return newM
 }
 
 // Before adds a pre-process callback to the model.
