@@ -12,12 +12,6 @@ const (
 // Errs is a slice of error keyed by the field name.
 type Errs map[string][]error
 
-// HasErrs returns a bool indicating whether the errs object
-// contains errors
-func (e *Errs) HasErrs() bool {
-	return len(*e) > 0
-}
-
 // f is the validator function type.
 type f func(data map[string]interface{}, keypath string) error
 
