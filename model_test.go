@@ -40,6 +40,11 @@ func TestExample(t *testing.T) {
 	is.Equal(errs["number"][0].Error(), "must be a number")
 	is.Equal(errs["ok"][0].Error(), "is required")
 
+	// marshal it
+	j, err := json.Marshal(errs)
+	is.NoErr(err)
+	is.Equal(string(j), `{"name":["must be string"],"number":["must be a number"],"ok":["is required"]}`)
+
 }
 
 func TestModel(t *testing.T) {

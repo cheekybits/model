@@ -1,7 +1,6 @@
 package model
 
 import (
-	"encoding/json"
 	"errors"
 
 	"github.com/cheekybits/m"
@@ -25,13 +24,8 @@ func IsRequired(data map[string]interface{}, keypath string) error {
 
 type errUnexpectedField string
 
-var _ json.Marshaler = (errUnexpectedField)("")
-
 func (f errUnexpectedField) Error() string {
 	return "unexpected '" + string(f) + "'"
-}
-func (f errUnexpectedField) MarshalJSON() ([]byte, error) {
-	return json.Marshal(f.Error())
 }
 
 // Strict is a Before function that ensures there are no extra data
