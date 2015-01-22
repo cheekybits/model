@@ -45,6 +45,20 @@ func TestExample(t *testing.T) {
 	is.NoErr(err)
 	is.Equal(string(j), `{"name":["must be string"],"number":["must be a number"],"ok":["is required"]}`)
 
+	j, err = json.MarshalIndent(errs, "", "  ")
+	is.NoErr(err)
+	is.Equal(string(j), `{
+  "name": [
+    "must be string"
+  ],
+  "number": [
+    "must be a number"
+  ],
+  "ok": [
+    "is required"
+  ]
+}`)
+
 }
 
 func TestModel(t *testing.T) {
