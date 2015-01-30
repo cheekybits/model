@@ -43,3 +43,18 @@ if data, errs = Person.Do(data); len(errs) > 0 {
 	// report errors to user
 }
 ```
+
+Adding `model.Strict` as a `Before` function, ensures no unexpected data appears in the map:
+
+```
+var Person = model.M{
+	"name":         {model.IsString, model.IsRequired},
+	"number":       {model.IsNumber},
+	"ok":           {model.IsBool, model.IsRequired},
+	"tags":         {model.IsInterfaceSlice},
+	"address.city": {model.IsRequired},
+}.Before(model.Strict)
+```
+
+  * You can write your own `Before` and `After` functions
+  * Add your own validators easily enough too, just write a function that has this signature: `func(data map[string]interface{}, keypath string) error`
